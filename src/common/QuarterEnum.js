@@ -1,0 +1,7 @@
+export const Quarter = {
+    FIRST_QUARTER: "Quý I",
+    SECOND_QUARTER: "Quý II",
+    THIRD_QUARTER: "Quý III",
+    FOURTH_QUARTER: "Quý IV",
+    "": "Tất cả"
+};

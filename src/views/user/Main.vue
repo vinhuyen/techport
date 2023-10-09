@@ -53,7 +53,7 @@
                   }"
                                         class="bg-transparent text-center text-white rounded-2xl px-2 text-xs py-1 font-medium"
                                 >
-                                    {{ $t(`${statusDisplayName[report.status]}`) }}
+                                    {{statusDisplayName[report.status]}}
                                 </button>
                             </div>
                         </div>
@@ -168,7 +168,7 @@ export default {
             };
             try {
                 const response = await ReportUserApi.getQuarterReportList(params);
-                this.reportUserList = response.content;
+                this.reportUserList = response.data.content;
             } catch (error) {
                 console.log(error)
             }
@@ -178,7 +178,7 @@ export default {
             await this.sortReportByYear();
         },
         gotoCreateJudgement() {
-            this.$router.push("techport/create")
+            this.$router.push("/create")
         }
     },
 };

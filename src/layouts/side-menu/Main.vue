@@ -5,7 +5,7 @@
     <div class="wrapper">
       <div class="wrapper-box">
         <!-- BEGIN: Side Menu -->
-        <nav class="side-nav">
+        <nav class="side-nav"  :style="{width: widthEnable + 'px'}">
           <ul>
             <!-- BEGIN: First Child -->
             <template v-for="(menu, menuKey) in formattedMenu">
@@ -26,14 +26,14 @@
                   class="side-menu"
                   :class="{
                     'side-menu--active': menu.active,
-                    'side-menu--open': menu.activeDropdown,
+                    'side-menu--open': !menu.activeDropdown,
                   }"
                   @click="linkTo(menu, router, $event)"
                 >
-                  <div class="side-menu__icon">
+                  <div class="side-menu__icon" @click="changeVisible">
                     <component :is="menu.icon" />
                   </div>
-                  <div class="side-menu__title">
+                  <div class="side-menu__title" v-if="widthEnable === 280">
                     {{ menu.title }}
                     <div
                       v-if="menu.subMenu"
@@ -64,9 +64,9 @@
                         @click="linkTo(subMenu, router, $event)"
                       >
                         <div class="side-menu__icon">
-                          <ActivityIcon />
+                            <component :is="subMenu.icon" />
                         </div>
-                        <div class="side-menu__title">
+                        <div class="side-menu__title"  v-if="widthEnable === 280">
                           {{ subMenu.title }}
                           <div
                             v-if="subMenu.subMenu"
@@ -169,4 +169,43 @@ onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
 });
+</script>
+<script>
+export default {
+	data() {
+		return {
+			widthEnable: 100,
+			visibleSidebar: true,
+			visibleIconSidebar: false
+		}
+	},
+	methods: {
+		changeVisible() {
+			this.visibleSidebar = !this.visibleSidebar
+			if(!this.visibleSidebar) {
+				const targetValue = 280;
+				const duration = 200;
+				const interval = 10;
+				const increment = (targetValue - this.widthEnable) * (interval / duration);
+				const timer = setInterval(() => {
+					this.widthEnable += increment;
+					if (this.widthEnable >= targetValue) {
+						clearInterval(timer);
+					}
+				}, interval);
+			} else {
+				const targetValue = 100;
+				const duration = 200;
+				const interval = 10;
+				const increment = (this.widthEnable - targetValue) * (interval / duration);
+				const timer = setInterval(() => {
+					this.widthEnable -= increment;
+					if (this.widthEnable <= targetValue) {
+						clearInterval(timer);
+					}
+				}, interval);
+			}
+		}
+	}
+}
 </script>

@@ -1,9 +1,9 @@
 <template>
     <Loading :show-loading="loadingAction"/>
-    <div class="flex justify-between">
+    <div class="flex justify-between mb-4">
         <div class="tabs mt-6">
             <div @click="selectStatus('all')" :class="{ active: selectedStatus === 'all' }">
-                {{ $t('lang.REWARD.RW4') }}
+                Tất cả
             </div>
             <div
                     v-for="(status, index) in StatusForTracking"
@@ -25,7 +25,7 @@
                     <option
                             v-for="(displayName, quarterValue) in QuarterForCreate"
                             :key="quarterValue"
-                            :value="quarterValue">{{ $t(displayName) }}
+                            :value="quarterValue">{{ displayName }}
                     </option>
                 </select>
             </div>
@@ -42,7 +42,12 @@
             </div>
         </div>
     </div>
-    <div class="list-attendance h-[600px]">
+    <div v-if="selectedEmployees.length <= 0"
+         class="text-primary flex flex-col items-center justify-center p-6 font-medium text-2xl  h-[600px]">
+        <img class="w-20 h-20 mb-4" src="/src/assets/images/icons8-empty-box-64.png" alt="">
+        <span>Không có bản đánh giá nào!</span>
+    </div>
+    <div v-else class="list-attendance h-[600px]">
         <ul class="ul-checked intro-x">
             <li v-for="(emp, ind) in selectedEmployees" :key="ind">
                 <div class="li-checked bg-white">
@@ -175,6 +180,182 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.tabs {
+    padding-top: 5px;
+    display: flex;
+    gap: 5px;
+}
 
+.tabs > div {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid rgb(226 232 240);
+    background-color: white;
+    position: relative;
+    font-weight: bold;
+    top: 0;
+    transition: all 0.25s;
+    border-radius: 15px;
+}
+.tabs > div:hover {
+    top: -0.25rem;
+    transition: top 0.25s;
+}
+.tabs > div.active {
+    background-color: green;
+    font-weight: bold;
+    color: white;
+}
+
+.employee-list {
+    margin-top: 16px;
+}
+.intro-y:nth-child(3) {
+    height: 100%;
+}
+
+.text-danger,
+.text-success {
+    width: 85px;
+}
+
+.text-warning {
+    color: #f7b217;
+}
+
+.list-attendance {
+    height: 70vh;
+    padding: 10px 0 30px 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.checked,
+.unchecked {
+    display: flex;
+    align-items: center;
+}
+
+.checked-empty {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    color: #ff7675;
+}
+
+.unchecked-empty {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    color: #69f470;
+}
+
+.unchecked {
+    justify-content: flex-start;
+    transition: all 0.5s ease;
+}
+
+.li-checked {
+    width: 280px;
+    height: 100px;
+    display: flex;
+    border-radius: 10px;
+    text-align: center;
+    margin: 5px 7px 5px 7px;
+    transition: all 0.5s ease;
+    box-shadow: 0 3px 20px #0000000b;
+    align-items: center;
+    gap: 15px;
+}
+
+.ul-checked {
+    width: 100%;
+    padding: 10px 4px 10px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    /*column-gap: 20px;*/
+    row-gap: 5px;
+}
+
+.image-checked {
+    max-width: 70px;
+    min-width: 70px;
+    max-height: 70px;
+    min-height: 70px;
+    object-fit: cover;
+    margin-left: 15px;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.image-checked:hover {
+    transform: scale(2);
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.checked-200 {
+    height: 200px;
+}
+
+.ul-checked-3 {
+    width: 100%;
+}
+
+.li-checked-5 {
+    margin: 10px 10px 0 5px !important;
+    width: 18% !important;
+}
+
+.li-checked-6 {
+    width: 15% !important;
+    margin: 0 10px 0 5px !important;
+}
+
+.li-checked-3 {
+    width: 380px;
+}
+
+ul > .li-checked-5 {
+    margin: auto;
+}
+
+ul > .li-checked-6 {
+    margin: auto;
+}
+
+.animate-zoom {
+    animation: zoom 0.5s ease-in-out;
+}
+
+.animate-remove {
+    animation: zoomOut 1s ease-out;
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
 </style>

@@ -32,13 +32,12 @@ const mutations = {
 const actions = {
     login: async ({ commit }, data) => {
         try {
-            console.log(data)
             const res  = await AuthApi.login(data)
-            commit("SET_TOKEN", res.data)
-            commit("SET_TOKEN_COOKIE", res.data)
+            commit("SET_TOKEN", res.data.token)
+            commit("SET_TOKEN_COOKIE", res.data.token)
 
-            AuthUtils.setToken(res.data)
-            AuthUtils.setTokenInCookies(res.data)
+            AuthUtils.setToken(res.data.token)
+            AuthUtils.setTokenInCookies(res.data.token)
             return true
         }
         catch (e) {
@@ -66,7 +65,7 @@ const actions = {
     async getAuthInfo({commit, dispatch}) {
         try {
             const data = await AuthApi.getAuthUser({})
-            commit('SET_USERINFO', data)
+            commit('SET_USERINFO', data.data)
 
         } catch (e) {
             dispatch("clearUser")

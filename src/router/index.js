@@ -1,10 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
 import SideMenu from "../layouts/side-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
-import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import {isEmpty} from 'lodash';
 import Login from "../views/login/Main.vue";
-import Register from "../views/register/Main.vue";
 import ErrorPage from "../views/error-page/Main.vue";
 import ListEvaluationUser from "@/views/user/Main.vue";
 import CreateJudgement from "@/views/user/CreateJudgement.vue";
@@ -19,53 +17,44 @@ const routes = [
     component: SideMenu,
     children: [
       {
-        path: "dashboard-overview-1",
-        name: "side-menu-dashboard-overview-1",
-        component: DashboardOverview1,
-      }
-    ],
-  },
-  // {
-  //   path: "/top-menu",
-  //   component: TopMenu,
-  //   children: [
-  //     {
-  //       path: "dashboard-overview-1",
-  //       name: "top-menu-dashboard-overview-1",
-  //       component: DashboardOverview1,
-  //     }]
-  // },
-  {
-    path: '/techport',
-    component: TopMenu,
-    children: [
-      {
-        path: 'admin',
-        name: 'base-menu',
+        path: "admin",
+        name: "base-menu",
         component: ListEvaluation,
         meta: {
-          id: 0,
-          requiresAuth: true
-        }
+          requiresAuth: true,
+          id: 1
+        },
       },
       {
-        path: 'admin/detail',
-        name: 'detail-evaluate-admin',
-        component: DetailEvaluationAdmin,
-        meta: {
-          id: 0,
-          requiresAuth: true
-        }
+        path: "",
+        children: [
+          {
+            path: 'admin/detail',
+            name: 'detail-evaluate-admin',
+            component: DetailEvaluationAdmin,
+            meta: {
+              id: 0,
+              requiresAuth: true
+            }
+          },
+          {
+            path: 'admin/tracking',
+            name: 'tracking-status',
+            component: TrackingStatus,
+            meta: {
+              id: 0,
+              requiresAuth: true
+            }
+          },
+        ]
       },
-      {
-        path: 'admin/tracking',
-        name: 'tracking-status',
-        component: TrackingStatus,
-        meta: {
-          id: 0,
-          requiresAuth: true
-        }
-      },
+    ],
+  },
+
+  {
+    path: '/',
+    component: TopMenu,
+    children: [
       {
         path: '',
         name: 'list-evaluation-user',
@@ -98,11 +87,6 @@ const routes = [
     component: Login,
   },
   {
-    path: "/register",
-    name: "register",
-    component: Register,
-  },
-  {
     path: "/error-page",
     name: "error-page",
     component: ErrorPage,
@@ -132,12 +116,8 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (!isEmpty(user)) {
-    const privileges = user?.privileges
-    const permissions = ['buy', 'approve'];
 
-    const hasAllPermissions = permissions.some(permission =>
-        privileges.includes(permission.toLowerCase())
-    );
+    const hasAllPermissions = true
 
     if (!hasAllPermissions && to.path.startsWith('/admin')) {
       next({

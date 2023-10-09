@@ -13,7 +13,8 @@ const state = {
         "status": "",
         "isAdmin": true
     },
-    resultDataDisplay: []
+    resultDataDisplay: [],
+    adminDetailId: ""
 }
 
 const mutations = {
@@ -22,7 +23,7 @@ const mutations = {
     },
     SET_LIST_ADMIN(state, list) {
         state.listEvaluateAdmin = list
-    },
+    }
 }
 
 const actions = {
@@ -32,7 +33,7 @@ const actions = {
     async fetchListEvaluateAdmin({ commit, state, dispatch }) {
         try {
             const res = await EvaluateAdminApi.getListEvaluate(state.paramsForAdmin)
-            commit("SET_LIST_ADMIN", res)
+            commit("SET_LIST_ADMIN", res.data)
             dispatch("setResultDisplay");
         } catch (e) {
             console.warn(e);
@@ -41,11 +42,15 @@ const actions = {
     setResultDisplay({ commit, state }) {
         commit("SET_RESULT_DISPLAY", state.listEvaluateAdmin)
     },
+    setAdminDetailId({state}, params) {
+        state.adminDetailId = params
+    }
 }
 
 const getters = {
     getResultsDisplay: (state) => state.resultDataDisplay,
     getListEvaluateAdmin: (state) => state.listEvaluateAdmin,
+    getAdminDetailId: (state) => state.adminDetailId
 }
 
 const evaluateList = {

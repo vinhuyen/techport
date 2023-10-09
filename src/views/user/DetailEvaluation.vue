@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-  <div class="w-full gap-5 bg-white px-6 mt-2 pt-2 scrollable__left"> 
+  <div class="w-full gap-5 bg-white px-6 mt-2 pt-2 scrollable__left">
     <div class="bg-gray-50 shadow">
       <div class="m-auto text-center pt-3.5">
         <span class="text-xl font-medium">MỤC TIÊU CHUNG</span>
@@ -245,14 +245,14 @@
                   <h4 class="tracking-wide font-bold">ĐÁNH GIÁ VỀ VIỆC THỰC HIỆN CÁC MỤC TIÊU ĐẶT RA</h4>
                   <div>
                     <h5 class="mt-1.5 font-bold">Điểm tốt:</h5>
-                    <p class="mt-1.5"> - 
-                      {{ item.goodPoint }} 
+                    <p class="mt-1.5"> -
+                      {{ item.goodPoint }}
                     </p>
                   </div>
                   <div class="mt-1.5">
                     <h5 class="font-bold">Điểm cần cải thiện:</h5>
-                    <p class="mt-1.5"> - 
-                      {{ item.notGoodPoint }} 
+                    <p class="mt-1.5"> -
+                      {{ item.notGoodPoint }}
                     </p>
                   </div>
                 </div>
@@ -261,8 +261,8 @@
               <div class="w-72 bg-gray-200 text-black">
                 <div class="p-5 max-w-full">
                   <h4 class="tracking-wide font-bold">ĐÁNH GIÁ VỀ NHẬN THỨC VẤN ĐỀ VÀ PHƯƠNG HƯỚNG GIẢI QUYẾT</h4>
-                  <p class="mt-1.5"> - 
-                    {{ item.awarenessAndResolvePlan }} 
+                  <p class="mt-1.5"> -
+                    {{ item.awarenessAndResolvePlan }}
                   </p>
                 </div>
               </div>
@@ -271,7 +271,7 @@
                 <div class="p-5 max-w-full">
                   <h4 class="tracking-wide font-bold">GÓP Ý VỀ MỤC TIÊU SẮP TỚI CHO NHÂN SỰ</h4>
                   <p class="mt-1.5"> -
-                    {{ item.feedback }} 
+                    {{ item.feedback }}
                   </p>
                 </div>
               </div>
@@ -280,7 +280,7 @@
                 <div class="p-5 max-w-full">
                   <h4 class="tracking-wide font-bold">ĐÁNH GIÁ CHUNG</h4>
                   <p> -
-                    {{ item.managerGeneralEvaluation }} 
+                    {{ item.managerGeneralEvaluation }}
                   </p>
                 </div>
               </div>
@@ -354,7 +354,7 @@ export default {
   watch: {
     id: async function (id) {
       const res = await EvaluateAdminApi.getDetailsEvaluate(id);
-      this.dataDetail = { ...res };
+      this.dataDetail = { ...res.data };
     },
   },
   computed: {
@@ -385,7 +385,7 @@ export default {
     async handleDetail() {
         try {
             const res = await EvaluateAdminApi.getDetailsEvaluate(this.id);
-            this.dataDetail = {...res};
+            this.dataDetail = {...res.data};
         } catch (e) {
             console.log(e)
         }
@@ -463,7 +463,7 @@ export default {
   display: flex;
   flex-direction: row;
   margin-top: -320px;
-  margin-bottom: 50px; 
+  margin-bottom: 50px;
 }
 </style>
 <style>

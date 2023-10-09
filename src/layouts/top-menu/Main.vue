@@ -3,7 +3,7 @@
     <MobileMenu />
     <TopBar />
     <!-- BEGIN: Top Menu -->
-    <nav class="top-nav">
+    <nav class="top-nav pt-0">
       <ul>
         <li v-for="(menu, menuKey) in formattedMenu" :key="menuKey">
           <a
@@ -39,7 +39,7 @@
                 @click="linkTo(subMenu, router, $event)"
               >
                 <div class="top-menu__icon">
-                  <ActivityIcon />
+                    <component :is="subMenu.icon" />
                 </div>
                 <div class="top-menu__title">
                   {{ subMenu.title }}

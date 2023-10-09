@@ -5,13 +5,18 @@ export const useSideMenuStore = defineStore("sideMenu", {
     menu: [
       {
         icon: "HomeIcon",
-        pageName: "side-menu-dashboard",
-        title: "Dashboard",
+        pageName: "base-menu",
+        title: "Quản lý bản đánh giá",
         subMenu: [
           {
-            icon: "",
-            pageName: "side-menu-dashboard-overview-1",
-            title: "Overview 1",
+            icon: "ListIcon",
+            pageName: "base-menu",
+            title: "Danh sách bản đánh giá"
+          },
+          {
+            icon: "BarChart2Icon",
+            pageName: "tracking-status",
+            title: "Trạng thái đánh giá"
           },
         ],
       },

@@ -10,14 +10,14 @@
             </div>
             <span> <b class="">Level: </b> S4</span>
           </div>
-  
+
           <div class="text-lg flex flex-col">
             <span> <b class="">Bộ phận: </b> {{ dataDetail?.userOrganizationName }}</span>
             <span> <b class="">Ngày đánh giá: </b> {{ dataDetail?.createAt }}</span>
           </div>
         </div>
       </div>
-    <div class="w-full gap-5 bg-white px-6 mt-2 pt-2 scrollable__left"> 
+    <div class="w-full gap-5 bg-white px-6 mt-2 pt-2 scrollable__left">
       <div class="target shadow ">
         <div class="m-auto text-center pt-3.5">
           <span class="text-xl font-medium ">MỤC TIÊU CHUNG</span>
@@ -61,7 +61,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="">
             <h3 class="text-xl font-medium mb-2 font-medium m-6 text-center">MỤC TIÊU CÁ NHÂN</h3>
             <div class="grid grid-cols-8 gap-4 w-full mb-2">
@@ -101,7 +101,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div>
                 <div class="font-bold text-lg">NHẬN THỨC VẤN ĐỀ</div>
                 <div class="selfEvaluate-frame">
@@ -117,7 +117,7 @@
                       </div>
                     </div>
                   </div>
-  
+
                   <div class="selfEvaluate-part bg-gray-200">
                     <div class="selfEvaluate-text">
                       <h4 class="tracking-wide font-bold">PHƯƠNG PHÁP GIẢI QUYẾT:</h4>
@@ -134,7 +134,7 @@
               </div>
             </div>
           </template>
-  
+
           <template v-slot:tabPanel-2>
             <div v-for="(item, index) in dataDetail.managerEvaluationDTOList" :key="index" class="border-b-2">
               <div class="managerEvaluate">
@@ -155,19 +155,19 @@
                     <h4 class="tracking-wide font-bold text-center">ĐÁNH GIÁ VỀ VIỆC THỰC HIỆN CÁC MỤC TIÊU ĐẶT RA</h4>
                     <div>
                       <h5 class="mt-1.5 font-bold">Điểm tốt:</h5>
-                      <p class="mt-1.5"> - 
-                        {{ item.goodPoint }} 
+                      <p class="mt-1.5"> -
+                        {{ item.goodPoint }}
                       </p>
                     </div>
                     <div class="mt-1.5">
                       <h5 class="font-bold">Điểm cần cải thiện:</h5>
-                      <p class="mt-1.5"> - 
-                        {{ item.notGoodPoint }} 
+                      <p class="mt-1.5"> -
+                        {{ item.notGoodPoint }}
                       </p>
                     </div>
                   </div>
                 </div>
-  
+
                 <div class="w-3/12 managerEvaluate-detail-even text-black">
                   <div class="p-5 max-w-full">
                     <div class="managerEvaluate-icon items-center flex justify-center mb-1.5">
@@ -177,12 +177,12 @@
                         </svg>
                     </div>
                     <h4 class="tracking-wide font-bold text-center">ĐÁNH GIÁ VỀ NHẬN THỨC VẤN ĐỀ VÀ PHƯƠNG HƯỚNG GIẢI QUYẾT</h4>
-                    <p class="mt-1.5"> - 
-                      {{ item.awarenessAndResolvePlan }} 
+                    <p class="mt-1.5"> -
+                      {{ item.awarenessAndResolvePlan }}
                     </p>
                   </div>
                 </div>
-  
+
                 <div class="w-3/12 managerEvaluate-detail-odd text-black">
                   <div class="p-5 max-w-full">
                     <div class="managerEvaluate-icon items-center flex justify-center mb-1.5">
@@ -193,11 +193,11 @@
                     </div>
                     <h4 class="tracking-wide font-bold text-center">GÓP Ý VỀ MỤC TIÊU SẮP TỚI CHO NHÂN SỰ</h4>
                     <p class="mt-1.5"> -
-                      {{ item.feedback }} 
+                      {{ item.feedback }}
                     </p>
                   </div>
                 </div>
-  
+
                 <div class=" w-3/12 managerEvaluate-detail-even text-black">
                   <div class="p-5 max-w-full">
                     <div class="managerEvaluate-icon items-center flex justify-center mb-1.5">
@@ -208,7 +208,7 @@
                     </div>
                     <h4 class="tracking-wide font-bold text-center">ĐÁNH GIÁ CHUNG</h4>
                     <p class="mt-1.5"> -
-                      {{ item.managerGeneralEvaluation }} 
+                      {{ item.managerGeneralEvaluation }}
                     </p>
                   </div>
                 </div>
@@ -219,11 +219,12 @@
       </div>
     </div>
   </template>
-  
+
   <script>
   import AppTabs from "@/components/app-tabs/Main.vue";
   import EvaluateAdminApi from "@/api/EvaluateAdminApi";
-  
+	import {mapGetters} from "vuex";
+
   export default {
       name: "DetailEvaluationAdmin",
       props: ['id'],
@@ -241,13 +242,13 @@
       methods: {
       async handleDetail() {
           const res = await EvaluateAdminApi.getDetailsEvaluate(this.reportId);
-          this.dataDetail = {...res};
+          this.dataDetail = {...res.data};
       }
   }
 
   };
   </script>
-  
+
   <style scoped>
   .shadow {
     box-shadow: 0px 3px 3px 5px rgb(0 0 0 / 0.25)
@@ -327,14 +328,14 @@
     margin: 0px 0 0 auto;
     color: #111111;
   }
-  
+
   .managerEvaluate-frame {
     grid-template-columns: repeat(4, calc(25% - 18.75px));
     min-height: 22rem;
     grid-gap: 25px;
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
   }
     .managerEvaluate-detail-odd {
         border-radius: 5px;
@@ -352,4 +353,3 @@
       background-color: white;
   }
   </style>
-  

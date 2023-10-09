@@ -35,7 +35,7 @@
                 <option
                         v-for="(displayName, quarterValue) in Quarter"
                         :key="quarterValue"
-                        :value="quarterValue">{{ $t(displayName) }}
+                        :value="quarterValue">{{ displayName }}
                 </option>
             </select>
         </div>
@@ -94,6 +94,7 @@ import Toastify from "toastify-js";
 import Loading from "@/components/loading/Loading.vue";
 import {mapGetters} from "vuex";
 import cloneDeep from "lodash.clonedeep";
+import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
     name: "CreateJudgement",
@@ -400,7 +401,7 @@ export default {
                         position: 'right',
                         stopOnFocus: true
                     }).showToast()
-                    this.$router.push("/techport")
+                    this.$router.push("/")
                     this.resetData()
                 }
             } catch (e) {

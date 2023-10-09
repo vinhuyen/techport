@@ -56,7 +56,7 @@
                   }"
                   class="flex justify-center items-center h-8 p-2 m-2 rounded-xl"
                 >
-                  {{ $t(displayName) }}
+                  {{ displayName }}
                 </div>
               </div>
               <div class="flex mb-2 input__time">
@@ -74,7 +74,7 @@
                     :key="quarterValue"
                     :value="quarterValue"
                   >
-                    {{ $t(displayName) }}
+                    {{ displayName }}
                   </option>
                 </select>
               </div>
@@ -213,12 +213,12 @@
                     }"
                     class="text-center m-auto text-white w-36 p-1.5 rounded-xl"
                   >
-                    {{ $t(`${statusDisplayName[item.status]}`) }}
+                    {{statusDisplayName[item.status] }}
                   </div>
                 </td>
                 <td>
                   <div class="text-center">
-                    {{ $t(`${quarterDisplay[item.quarter]}`) }}
+                    {{ quarterDisplay[item.quarter] }}
                   </div>
                 </td>
                 <td>
@@ -251,6 +251,7 @@
         </table>
       </div>
     </div>
+
     <div
       class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap justify-between mt-3"
       v-if="theResult.length > 0"
@@ -283,10 +284,12 @@ import { ReportStatus } from "@/common/StatusEnum";
 import { Quarter } from "@/common/QuarterEnum";
 import Pagination from "@/components/pagination/pagination_master.vue";
 import AdminTagForRequest from "@/components/avatar-bubble/Main.vue";
+import DetailEvaluationAdmin from "@/views/admin/list-evaluated/DetailEvaluateAdmin.vue";
 
 export default {
   name: "ListEvaluation",
   components: {
+		DetailEvaluationAdmin,
     VueDatePicker,
     Pagination,
     AdminTagForRequest,
@@ -376,21 +379,14 @@ export default {
           break;
       }
     },
-    dateResultFormat(date) {
-      return new Date(date);
-    },
-    async handleSearch() {
-      this.list();
-    },
-    updateSearch() {
+    handleSearch() {
       this.list();
     },
     updateStatusFilter() {
       this.list();
     },
-    async handleChangeYear(newYear) {
+    handleChangeYear(newYear) {
       this.theMonthFilter.year = newYear.toString();
-      await this.leaveDaysList();
     },
     resetFilters() {
       this.selectedQuarter = "";
@@ -472,7 +468,7 @@ export default {
       this.totalPages = this.listEvaluate?.totalPages;
       this.totalReviewGroup = this.theResult?.length;
       this.dataPage = this.paginate(this.theResult, this.perPage, 1);
-    },
+    }
   },
 };
 </script>
